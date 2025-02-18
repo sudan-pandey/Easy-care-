@@ -1,3 +1,6 @@
+// WebSocket connection
+const socket = io("http://localhost:5000");
+
 // Update and display current time
 function updateTime() {
     const now = new Date();
@@ -22,9 +25,14 @@ function toggle(id) {
         valueToSend = id === 'bed' ? '1' : id === 'kitchen' ? '11' : '111';
     }
 
-    document.getElementById('messageInput').value = valueToSend;
-    document.getElementById('sendButton').click();
+    // Send data to the WebSocket server
+    socket.emit("toggleDevice", { device: id, status: valueToSend });
 }
+
+// Listen for WebSocket responses
+socket.on("deviceStatus", (data) => {
+    console.log(`Device ${data.device} status changed to ${data.status}`);
+});
 
 // Fetch and display weather data
 function processWeatherData(response) {
