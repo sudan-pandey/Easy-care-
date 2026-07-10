@@ -1,3 +1,6 @@
+uploads/logos/*
+uploads/products/*
+!uploads/logos/.gitkeep
+!uploads/products/.gitkeep
 node_modules/
 database.sqlite
-uploads/
